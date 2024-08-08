@@ -103,6 +103,8 @@ LegControllerData
 		|___Quadruped
 		             |___quadruped
 
-This project mainly completes the data processing and calculation of the robot leg state quantity, constructs the Jacobian matrix to complete the calculation of forward kinematics and inverse kinematics, and completes the data packaging and communication through LCM
+	This project mainly completes the data processing and calculation of the robot leg state quantity,
+constructs the Jacobian matrix to complete the calculation of forward kinematics and inverse kinematics,
+and completes the data packaging and communication through LCM
 
 END
