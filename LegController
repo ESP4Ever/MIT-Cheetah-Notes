@@ -1,77 +1,77 @@
 >>>>>>> template <typename T>
-        void LegControllerCommand<T>::zero()
-            Function: Set all parameters in the structure LegControllerCommand to zero
-        Vector type parameters: tauFeedForward: output torque (3*1)
-                                forceFeedForward: output force (3*1)
-                                qDes: expected joint position (3*1)
-                                qdDes: expected joint velocity (3*1)
-                                pDes: expected foot position (3*1)
-                                vDes: expected foot velocity (3*1)
-        Matrix type parameters: kpCartesian: Cartesian space scale coefficient, used to control foot behavior (3*3)
-                                kdCartesian: Cartesian space differential coefficient, used to control foot behavior (3*3)
-                                kpJoint: joint space scale coefficient, used to control joint behavior (3*3)
-                                kdJoint: Joint space differential coefficient, used to control joint behavior (3*3)
+		void LegControllerCommand<T>::zero()
+		        Function: Set all parameters in the structure LegControllerCommand to zero
+		        Vector type parameters: tauFeedForward: output torque (3*1)
+		                                forceFeedForward: output force (3*1)
+		                                qDes: expected joint position (3*1)
+		                                qdDes: expected joint velocity (3*1)
+		                                pDes: expected foot position (3*1)
+		                                vDes: expected foot velocity (3*1)
+		        Matrix type parameters: kpCartesian: Cartesian space scale coefficient, used to control foot behavior (3*3)
+		                                kdCartesian: Cartesian space differential coefficient, used to control foot behavior (3*3)
+		                                kpJoint: joint space scale coefficient, used to control joint behavior (3*3)
+		                                kdJoint: Joint space differential coefficient, used to control joint behavior (3*3)
 
 >>>>>>> template <typename T>
-        void LegControllerData<T>::zero()
-        Function: Set all parameters in the structure LegControllerData to zero
-        Vector type parameters: q: actual joint position (3*1)
-                                qd: actual joint velocity (3*1)
-                                p: actual foot position (3*1)
-                                v: actual foot velocity (3*1)
-                                tauEstimate: estimated value of joint torque (3*1)
-        Matrix type parameters: J: Jacobian matrix (3*3)
+		void LegControllerData<T>::zero()
+		        Function: Set all parameters in the structure LegControllerData to zero
+		        Vector type parameters: q: actual joint position (3*1)
+		                                qd: actual joint velocity (3*1)
+		                                p: actual foot position (3*1)
+		                                v: actual foot velocity (3*1)
+		                                tauEstimate: estimated value of joint torque (3*1)
+		        Matrix type parameters: J: Jacobian matrix (3*3)
 
 >>>>>>> template <typename T>
-        void LegController<T>::zeroCommand()
-        Function: commands is a LegControllerCommand structure array of 4 elements
-        The for loop traverses and calls the zero() function in the 4 elements
-        Set the _legsEnabled variable to false
+		void LegController<T>::zeroCommand()
+		        Function: commands is a LegControllerCommand structure array of 4 elements
+		        The for loop traverses and calls the zero() function in the 4 elements
+		        Set the _legsEnabled variable to false
 
 >>>>>>> template <typename T>
-        void LegController<T>::edampCommand( RobotType robot, T gain)
-        Function: According to whether the input parameter robot is Cheetah 3 or mini-cheetah, use the input parameter gain to diagonally assign values ​​to the differential coefficient matrix kdCartesian or kdJoint
+		void LegController<T>::edampCommand( RobotType robot, T gain)
+	        	Function: According to whether the input parameter robot is Cheetah 3 or mini-cheetah, use the input parameter gain to diagonally assign values ​​to the differential coefficient matrix kdCartesian or kdJoint
 
 >>>>>>> template <typename T>
-        void LegController<T>::updateData( const SpiData* spiData)
-        Function: datas is a defined 4-element LegControllerData structure array
-        Use the members in the input parameter spiData to assign values ​​to the q and qd members in datas
-        Call the function computeLegJacobianAndPosition to calculate the Jacobian matrix and foot position coordinates of each of the four legs
-        Calculate the foot speed using the forward kinematics method
+	        void LegController<T>::updateData( const SpiData* spiData)
+		        Function: datas is a defined 4-element LegControllerData structure array
+			Use the members in the input parameter spiData to assign values ​​to the q and qd members in datas
+			Call the function computeLegJacobianAndPosition to calculate the Jacobian matrix and foot position coordinates of each of the four legs
+			Calculate the foot speed using the forward kinematics method
 
 >>>>>>> template <typename T>
-        void LegController<T>::updateData( const TiBoardData* tiBoardData)
-        Function: datas is a defined 4-element LegControllerData structure array
-        Use the members in the input parameter tiBoardData to assign values ​​to the q, qd, p, and v members in datas
-        Call the function computeLegJacobianAndPosition to calculate the Jacobian matrix of each of the four legs and the foot position coordinates
-        Use the joint torque member tau in the input parameter tiBoardData to assign values ​​to the tauEstimate member in datas
+	        void LegController<T>::updateData( const TiBoardData* tiBoardData)
+		        Function: datas is a defined 4-element LegControllerData structure array
+		        Use the members in the input parameter tiBoardData to assign values ​​to the q, qd, p, and v members in datas
+		        Call the function computeLegJacobianAndPosition to calculate the Jacobian matrix of each of the four legs and the foot position coordinates
+		        Use the joint torque member tau in the input parameter tiBoardData to assign values ​​to the tauEstimate member in datas
 
 >>>>>>>> template <typename T>
-        void LegController<T>::updateCommand( SpiCommand* spiCommand)
-        Function: Use the members in commands to update the members in spiCommand
+	        void LegController<T>::updateCommand( SpiCommand* spiCommand)
+	        	Function: Use the members in commands to update the members in spiCommand
 
 >>>>>>>> template <typename T>
-        void LegController<T>::updateCommand(TiBoardCommand* tiBoardCommand)
-        Function: Update members in tiBoardCommand with members in commands
+	        void LegController<T>::updateCommand(TiBoardCommand* tiBoardCommand)
+	        	Function: Update members in tiBoardCommand with members in commands
 
 >>>>>>> template<typename T>
-        void LegController<T>::setLcm( leg_control_data_lcmt *lcmData, leg_control_command_lcmt *lcmCommand)
-        Function: Update members in lcmData and lcmCommand, which essentially stores members in the LegControllerCommand structure and LegControllerData structure in the corresponding members of the lcmData structure and lcmCommand structure
+	        void LegController<T>::setLcm( leg_control_data_lcmt *lcmData, leg_control_command_lcmt *lcmCommand)
+	        	Function: Update members in lcmData and lcmCommand, which essentially stores members in the LegControllerCommand structure and LegControllerData structure in the corresponding members of the lcmData structure and lcmCommand structure
 
 >>>>>>> template <typename T>
-        void computeLegJacobianAndPosition( Quadruped<T>& quad, Vec3<T>& q, Mat3<T>* J, Vec3<T>* p, int leg)
-        Function: Store the abadLink length, hipLink length, kneeLink length and compensation kneeLinkY of the input parameter quad in l1, l2, l3 and l4 respectively
-        The flag sideSign is used to distinguish the left leg from the right leg (left positive and right negative), because the design is based on the y-direction coordinates of the positive kinematics of the leg
-        J is the Jacobian matrix, which connects the joint space and the Cartesian space of the foot
-        p is the position coordinate of the foot in the Cartesian coordinate system. Given the link length and joint angle, the position coordinates of the foot are obtained by positive kinematics
-            | l3 * sin(2 + 3) + l2 * sin(2) |
-        p = | (l1 + l4) * sideSign * cos(1) + [l3 * cos(2 + 3) + l2 * cos(2)] * sin(1) |
-            | (l1 + l4) * sideSign * sin(1) - [l3 * cos(2 + 3) + l2 * cos(2)] * cos(1) |
-        Reference direction: Take the left front leg as an example, looking from the right front leg:
-                             For the hip joint, the counterclockwise direction is the positive direction
-                             For the knee joint, the counterclockwise direction is the positive direction
-        Looking from the head:
-                             For the shoulder joint, the counterclockwise direction is the positive direction
+	        void computeLegJacobianAndPosition( Quadruped<T>& quad, Vec3<T>& q, Mat3<T>* J, Vec3<T>* p, int leg)
+		        Function: Store the abadLink length, hipLink length, kneeLink length and compensation kneeLinkY of the input parameter quad in l1, l2, l3 and l4 respectively
+		        The flag sideSign is used to distinguish the left leg from the right leg (left positive and right negative), because the design is based on the y-direction coordinates of the positive kinematics of the leg
+		        J is the Jacobian matrix, which connects the joint space and the Cartesian space of the foot
+		        p is the position coordinate of the foot in the Cartesian coordinate system. Given the link length and joint angle, the position coordinates of the foot are obtained by positive kinematics
+		            | l3 * sin(2 + 3) + l2 * sin(2) |
+		        p = | (l1 + l4) * sideSign * cos(1) + [l3 * cos(2 + 3) + l2 * cos(2)] * sin(1) |
+		            | (l1 + l4) * sideSign * sin(1) - [l3 * cos(2 + 3) + l2 * cos(2)] * cos(1) |
+		        Reference direction: Take the left front leg as an example, looking from the right front leg:
+		                             For the hip joint, the counterclockwise direction is the positive direction
+		                             For the knee joint, the counterclockwise direction is the positive direction
+		        Looking from the head:
+		                             For the shoulder joint, the counterclockwise direction is the positive direction
 
 Summary:
 Main parameter members:
