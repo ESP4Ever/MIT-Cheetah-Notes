@@ -1,109 +1,103 @@
->>>>>>>	template <typename T>
-                  void LegControllerCommand<T>::zero()
-	函数功能：将结构体LegControllerCommand中所有的参数置零
-                          向量类型参数：tauFeedForward：输出的力矩（3*1）
-                                                         forceFeedForward：输出的力（3*1）
-                                                         qDes：期望的关节位置（3*1）
-                                                         qdDes：期望的关节速度（3*1）
-                                                         pDes：期望的足端位置（3*1）
-                                                         vDes：期望的足端速度（3*1）
-                          矩阵类型参数：kpCartesian：笛卡尔空间比例系数，用来对足端行为进行控制（3*3）
-                                                         kdCartesian：笛卡尔空间微分系数，用来对足端行为进行控制（3*3）
-                                                         kpJoint：关节空间比例系数，用来对关节行为进行控制（3*3）
-                                                         kdJoint：关节空间微分系数，用来对关节行为进行控制（3*3）
+>>>>>>> template <typename T>
+void LegControllerCommand<T>::zero()
+Function: Set all parameters in the structure LegControllerCommand to zero
+Vector type parameters: tauFeedForward: output torque (3*1)
+forceFeedForward: output force (3*1)
+qDes: expected joint position (3*1)
+qdDes: expected joint velocity (3*1)
+pDes: expected foot position (3*1)
+vDes: expected foot velocity (3*1)
+Matrix type parameters: kpCartesian: Cartesian space scale coefficient, used to control foot behavior (3*3)
+kdCartesian: Cartesian space differential coefficient, used to control foot behavior (3*3)
+kpJoint: joint space scale coefficient, used to control joint behavior (3*3)
+kdJoint: Joint space differential coefficient, used to control joint behavior (3*3)
 
->>>>>>>	template <typename T>
-                  void LegControllerData<T>::zero() 
-	函数功能：将结构体LegControllerData中所有的参数置零
-                          向量类型参数：q：实际的关节位置（3*1）
-                                                         qd：实际的关节速度（3*1）
-                                                         p：实际的足端位置（3*1）
-                                                         v：实际的足端速度（3*1）
-                                                         tauEstimate：关节力矩的估计值（3*1）
-                          矩阵类型参数：J：Jacobian矩阵（3*3）
-                         
->>>>>>>	template <typename T>
-                  void LegController<T>::zeroCommand()
-	函数功能：commands为定义的4个元素的LegControllerCommand结构体数组
-                        for循环遍历调用4个元素中的zero()函数
-                        将_legsEnabled变量置为false
-                        
->>>>>>>	template <typename T>
-                  void LegController<T>::edampCommand(RobotType robot, T gain) 
-	函数功能：根据输入参数robot是Cheetah 3还是mini-cheetah，对微分系数矩阵kdCartesian或kdJoint使用输入参数gain进行对角赋值
-  
->>>>>>>	template <typename T>
-                  void LegController<T>::updateData(const SpiData* spiData) 
-	函数功能：datas为定义的4个元素的LegControllerData结构体数组
-                        使用输入参数spiData中的成员对datas中的q和qd成员赋值
-                        调用函数computeLegJacobianAndPosition，计算四条腿各自的Jacobian矩阵以及足端位置坐标
-		        通过正运动学方法计算足端的速度
-                        
->>>>>>>	template <typename T>
-                  void LegController<T>::updateData(const TiBoardData* tiBoardData) 
-	函数功能：datas为定义的4个元素的LegControllerData结构体数组
-                        使用输入参数tiBoardData中的成员对datas中的q、qd、p和v成员赋值
-                        调用函数computeLegJacobianAndPosition，计算四条腿各自的Jacobian矩阵以及足端位置坐标
-		        使用输入参数tiBoardData中的关节力矩成员tau对datas中的tauEstimate成员赋值
-			
->>>>>>>	template <typename T>
-                  void LegController<T>::updateCommand(SpiCommand* spiCommand)
-	函数功能：用commands中的成员更新spiCommand中的成员
+>>>>>>> template <typename T>
+void LegControllerData<T>::zero()
+Function: Set all parameters in the structure LegControllerData to zero
+Vector type parameters: q: actual joint position (3*1)
+qd: actual joint velocity (3*1)
+p: actual foot position (3*1)
+v: actual foot velocity (3*1)
+tauEstimate: estimated value of joint torque (3*1)
+Matrix type parameters: J: Jacobian matrix (3*3)
 
->>>>>>>	template <typename T>
-                  void LegController<T>::updateCommand(TiBoardCommand* tiBoardCommand)
-	函数功能：用commands中的成员更新tiBoardCommand中的成员
-	
->>>>>>>	template<typename T>
-                  void LegController<T>::setLcm(leg_control_data_lcmt *lcmData, leg_control_command_lcmt *lcmCommand)
-	函数功能：更新lcmData和lcmCommand中的成员，本质上就是将LegControllerCommand结构体和LegControllerData结构体中的成员分类存储到lcmData结构体和lcmCommand结构体中的对应成员中
-			
->>>>>>>	template <typename T>
-                  void computeLegJacobianAndPosition(Quadruped<T>& quad, Vec3<T>& q, Mat3<T>* J,  Vec3<T>* p, int leg) 
-	函数功能：将输入参数quad的abadLink长度、hipLink长度、kneeLink长度以及补偿量kneeLinkY分别存储在l1、l2、l3以及l4中
-			      标志位sideSign用以区分左侧的腿和右侧的腿（左正右负），因为设计到腿部正运动学的足端在y方向上的坐标
-			      J为Jacobian矩阵，联系关节空间和足端笛卡尔空间
-			      p为足端在笛卡尔坐标系下的位置坐标，已知连杆长度和关节角度，通过正运动学求解得到足端位置坐标
-                                       |                                           l3 * sin(2 + 3) + l2 * sin(2)                                       |
-			      p =   |  (l1 + l4) * sideSign * cos(1) + [l3 * cos(2 + 3) + l2 * cos(2)] * sin(1)  |
-			               |   (l1 + l4) * sideSign * sin(1) - [l3 * cos(2 + 3) + l2 * cos(2)] * cos(1)  |
-			      有关参考方向：以左前腿为例，从右前腿的位置看去：
-			      					      对于髋关节，逆时针方向为正方向
-								      对于膝关节，逆时针方向为正方向
-							     从机体头部看去：
-							              对于肩关节，逆时针方向为正方向
-								    
-###############################################################################################################################
-总结：
-主要的参数成员：
-LegControllerCommand
-		|___Vec3
-		|	     |___tauFeedForward, 
-		|	     |___forceFeedForward
-		|	     |___qDes
-		|	     |___qdDes
-		|	     |___pDes
-		|	     |___vDes
-		|
-		|___Mat3
-		             |___kpCartesian
-			     |___kdCartesian
-			     |___kpJoint
-			     |___kdJoint
+>>>>>>> template <typename T>
+void LegController<T>::zeroCommand()
+Function: commands is a LegControllerCommand structure array of 4 elements
+The for loop traverses and calls the zero() function in the 4 elements
+Set the _legsEnabled variable to false
+
+>>>>>>> template <typename T>
+void LegController<T>::edampCommand(RobotType robot, T gain)
+Function: According to whether the input parameter robot is Cheetah 3 or mini-cheetah, use the input parameter gain to diagonally assign values ​​to the differential coefficient matrix kdCartesian or kdJoint
+
+>>>>>>> template <typename T>
+void LegController<T>::updateData(const SpiData* spiData)
+Function: datas is a defined 4-element LegControllerData structure array
+Use the members in the input parameter spiData to assign values ​​to the q and qd members in datas
+Call the function computeLegJacobianAndPosition to calculate the Jacobian matrix and foot position coordinates of each of the four legs
+Calculate the foot speed using the forward kinematics method
+
+>>>>>>> template <typename T>
+void LegController<T>::updateData(const TiBoardData* tiBoardData)
+Function: datas is a defined 4-element LegControllerData structure array
+Use the members in the input parameter tiBoardData to assign values ​​to the q, qd, p, and v members in datas
+Call the function computeLegJacobianAndPosition to calculate the Jacobian matrix of each of the four legs and the foot position coordinates
+Use the joint torque member tau in the input parameter tiBoardData to assign values ​​to the tauEstimate member in datas
+
+>>>>>>>> template <typename T>
+void LegController<T>::updateCommand(SpiCommand* spiCommand)
+Function: Use the members in commands to update the members in spiCommand
+
+>>>>>>>> template <typename T>
+void LegController<T>::updateCommand(TiBoardCommand* tiBoardCommand)
+Function: Update members in tiBoardCommand with members in commands
+
+>>>>>>> template<typename T>
+void LegController<T>::setLcm(leg_control_data_lcmt *lcmData, leg_control_command_lcmt *lcmCommand)
+Function: Update members in lcmData and lcmCommand, which essentially stores members in the LegControllerCommand structure and LegControllerData structure in the corresponding members of the lcmData structure and lcmCommand structure
+
+>>>>>>> template <typename T>
+void computeLegJacobianAndPosition(Quadruped<T>& quad, Vec3<T>& q, Mat3<T>* J, Vec3<T>* p, int leg)
+Function: Store the abadLink length, hipLink length, kneeLink length and compensation kneeLinkY of the input parameter quad in l1, l2, l3 and l4 respectively
+The flag sideSign is used to distinguish the left leg from the right leg (left positive and right negative), because the design is based on the y-direction coordinates of the positive kinematics of the leg
+J is the Jacobian matrix, which connects the joint space and the Cartesian space of the foot
+p is the position coordinate of the foot in the Cartesian coordinate system. Given the link length and joint angle, the position coordinates of the foot are obtained by positive kinematics
+| l3 * sin(2 + 3) + l2 * sin(2) |
+p = | (l1 + l4) * sideSign * cos(1) + [l3 * cos(2 + 3) + l2 * cos(2)] * sin(1) |
+| (l1 + l4) * sideSign * sin(1) - [l3 * cos(2 + 3) + l2 * cos(2)] * cos(1) |
+Reference direction: Take the left front leg as an example, looking from the right front leg:
+For the hip joint, the counterclockwise direction is the positive direction
+For the knee joint, the counterclockwise direction is the positive direction
+Looking from the head:
+For the shoulder joint, the counterclockwise direction is the positive direction
+
+# ... |___forceFeedForward
+| |___qDes
+| |___qdDes
+| |___pDes
+| |___vDes
+|
+|___Mat3
+|___kpCartesian
+|___kdCartesian
+|___kpJoint
+|___kdJoint
 LegControllerData
-		|___Vec3
-		|	     |___q
-		|	     |___qd
-		|	     |___p
-		|	     |___v
-		|	     |___tauEstimate
-		|
-		|___Mat3
-		|            |___J
-                |
-		|___Quadruped
-		             |___quadruped
-		
-此工程主要完成了机器人腿部状态量的数据处理和计算，构建Jacobian矩阵完成正运动学和逆运动学的计算，通过LCM完成数据的打包和通信
+|___Vec3
+| |___q
+| |___qd
+| |___p
+| |___v
+| |___tauEstimate
+|
+|___Mat3
+| |___J
+|
+|___Quadruped
+|___quadruped
+
+This project mainly completes the data processing and calculation of the robot leg state quantity, constructs the Jacobian matrix to complete the calculation of forward kinematics and inverse kinematics, and completes the data packaging and communication through LCM
 
 END
