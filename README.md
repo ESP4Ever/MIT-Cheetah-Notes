@@ -1,24 +1,24 @@
 # MIT-Cheetah-Note
-## MIT Cheetah仿真平台源码笔记以及一部分第三方组件
-### 仓库说明
->在看MIT Cheetah仿真平台的源码的过程中所做的笔记的整理，为了更好地理解源码，因此对应代码中提到的部分参考论文，手动整理了这份笔记，希望与同好交流，笔记中的错误之处欢迎指正。
-       
-### 文件结构     
-`ref` 文件夹中存储相关的论文和电子书的pdf格式文件。     
-`BalanceController` 对应源码中BalanceController相关文件的剖析,主要是调用qpOASES求解器完成对四足机器人GRF的优化求解过程。     
-`Quadruped` 对应源码中Quadruped相关文件的剖析，主要是构建四足机器人的动力学和运动学模型。     
-`LegController` 对应源码中LegController相关文件的剖析，主要是四足机器人腿部运动学的参数处理以及正、逆运动学的计算。       
-`FootSwingTrajectory` 对应源码中FootSwingTrajectory相关文件的剖析，主要是对摆动腿的足端位置、速度和加速度通过三次贝塞尔曲线插值进行规划。    
-`convexMPC_interface`对应源码中convexMPC_interface相关文件的剖析，主要是为MPC问题的求解和参数赋值提供接口。           
-`RobotState`对应源码中RobotState相关文件的剖析，主要是提供一个存储机器人状态信息和打印状态信息的对象。          
-`SolverMPC` 对应源码中SolverMPC相关文件的剖析，主要是构建一个MPC问题并完成求解。        
-`Gait` 对应源码中Gait相关文件的剖析，主要是对机器人行走步态的分析，涉及到摆动相和支撑相的分析。   
-`ConvexMPCLocomotion` 对应源码中ConvexMPCLocomotion相关文件的剖析，主要是将步态的控制与MPC控制器完成结合。       
-`PositionVelocityEstimator` 对应源码中PositionVelocityEstimator相关文件的剖析，主要是构建一个线性卡尔曼滤波器，完成对于机体位置和速度的估计。  
-`WBC` 目录中存储对源码中所有与WBC相关的文件的剖析。
+## MIT Cheetah simulation platform source code notes and some third-party components
+### Warehouse description
+>The notes I made while reading the source code of the MIT Cheetah simulation platform are organized manually. In order to better understand the source code, I have manually organized some reference papers mentioned in the corresponding code. I hope to communicate with my peers. You are welcome to correct any errors in the notes.
 
-### 其他
-原始项目地址：[https://github.com/mit-biomimetics/Cheetah-Software](https://github.com/mit-biomimetics/Cheetah-Software)       
-qpOASES求解器地址：[https://github.com/coin-or/qpOASES](https://github.com/coin-or/qpOASES)
-       
+### File structure
+The `ref` folder stores pdf files of relevant papers and e-books.
+`BalanceController` corresponds to the analysis of the BalanceController-related files in the source code, mainly calling the qpOASES solver to complete the optimization solution process of the quadruped robot GRF.
+`Quadruped` corresponds to the analysis of the Quadruped-related files in the source code, mainly to build the dynamics and kinematics model of the quadruped robot.
+`LegController` corresponds to the analysis of the LegController-related files in the source code, mainly the parameter processing of the quadruped robot leg kinematics and the calculation of forward and inverse kinematics.
+`FootSwingTrajectory` corresponds to the analysis of FootSwingTrajectory related files in the source code, mainly planning the foot position, velocity and acceleration of the swinging leg through cubic Bezier curve interpolation.
+`convexMPC_interface` corresponds to the analysis of convexMPC_interface related files in the source code, mainly providing an interface for solving MPC problems and assigning parameters.
+`RobotState` corresponds to the analysis of RobotState related files in the source code, mainly providing an object for storing robot state information and printing state information.
+`SolverMPC` corresponds to the analysis of SolverMPC related files in the source code, mainly building an MPC problem and solving it.
+`Gait` corresponds to the analysis of Gait related files in the source code, mainly analyzing the robot's walking gait, involving the analysis of the swing phase and the support phase.
+`ConvexMPCLocomotion` corresponds to the analysis of ConvexMPCLocomotion related files in the source code, mainly combining the control of gait with the MPC controller.
+`PositionVelocityEstimator` corresponds to the analysis of the PositionVelocityEstimator related files in the source code, mainly to build a linear Kalman filter to complete the estimation of the body position and velocity.
+The `WBC` directory stores the analysis of all WBC-related files in the source code.
+
+### Others
+Original project address: [https://github.com/mit-biomimetics/Cheetah-Software](https://github.com/mit-biomimetics/Cheetah-Software)
+qpOASES solver address: [https://github.com/coin-or/qpOASES](https://github.com/coin-or/qpOASES)
+
 ## Loading......
