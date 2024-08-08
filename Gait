@@ -2,11 +2,11 @@ References:
 [1] J. Di Carlo, P. M. Wensing, B. Katz, G. Bledt and S. Kim, "Dynamic Locomotion in the MIT Cheetah 3 Through Convex Model-Predictive Control," 2018 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS), Madrid, 2018, pp. 1-9, doi: 10.1109/IROS.2018.8594448.
 
 Variables:
-currentIteration: current number of iterations
-iterationsPerMPC: number of iterations per segment
-_nIterations: number of segments in a step (10 to 16 in the paper)
-_iteration: the number of segments in a gait cycle
-_phase: the current percentage in a gait cycle
+currentIteration:  current number of iterations
+iterationsPerMPC:  number of iterations per segment
+_nIterations:      number of segments in a step (10 to 16 in the paper)
+_iteration:        the number of segments in a gait cycle
+_phase:            the current percentage in a gait cycle
 
 Function:
 >>>>>>> OffsetDurationGait(int nSegment, Vec4<int> offset, Vec4<int> durations, const std::string& name)
