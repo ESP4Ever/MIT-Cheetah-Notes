@@ -1,17 +1,17 @@
-变量：
-	NUM_CONSTRAINTS_QP：QP问题的约束个数（20）
-	NUM_VARIABLES_QP：QP问题变量个数（12）
-	
-函数：
+Variables:
+	NUM_CONSTRAINTS_QP: Number of constraints for the QP problem (20)
+	NUM_VARIABLES_QP: Number of variables for the QP problem (12)
+
+Functions:
 >>>>>>>	BalanceController::BalanceController() 
-	BalanceController类的构造函数，实例化一个QProblem类的对象QProblemObj_qpOASES以及lcm类的对象lcm。
-	初始化用于QP问题的参数：
+	The constructor of the BalanceController class instantiates an object of the QProblem class QProblemObj_qpOASES and an object of the lcm class lcm.
+	Initialize the parameters for the QP problem:
 		H_eigen（12×12）
 		A_eigen（20×12）
 		g_eigen（12×1）
 		xOpt_eigen（12×1）
 		yOpt_eigen（32×1）
-	初始化机器人本体和环境参数：
+	Initialize robot body and environment parameters：
 		mass = 41   质量  
 		inertia = 0.01   惯性  
 		Ig 3×3的单位阵，赋值为 inertia * Ig
