@@ -1,13 +1,13 @@
 Variables:
-p: robot position >>>>>>>3*1 matrix
-v: robot velocity >>>>>>>3*1 matrix
-w: robot angular velocity >>>>>>>3*1 matrix
-R: rotation matrix >>>>>>>3*3 matrix
-R_yaw: rotation matrix considering only yaw >>>>>>>3*3 matrix
+p:      robot position >>>>>>>3*1 matrix
+v:      robot velocity >>>>>>>3*1 matrix
+w:      robot angular velocity >>>>>>>3*1 matrix
+R:      rotation matrix >>>>>>>3*3 matrix
+R_yaw:  rotation matrix considering only yaw >>>>>>>3*3 matrix
 r_feet: foot position coordinate matrix >>>>>>>3*4 matrix
 I_body: robot inertia matrix >>>>>>>3*3 matrix
-q: quaternion
-yaw: yaw angle
+q:      quaternion
+yaw:    yaw angle
 
 Function:
 >>>>>>> void RobotState::set( flt* p_, flt* v_, flt* q_, flt* w_, flt* r_,flt yaw_)
